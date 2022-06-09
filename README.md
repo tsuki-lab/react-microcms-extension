@@ -1,27 +1,30 @@
-# use-microcms-iframe
+# react-microcms-extension
 
-[![npm version](https://badge.fury.io/js/use-microcms-iframe.svg)](https://badge.fury.io/js/use-microcms-iframe)
+[![npm version](https://badge.fury.io/js/react-microcms-extension.svg)](https://badge.fury.io/js/react-microcms-extension)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-microCMS の[外部データ連携（拡張フィールド）](https://document.microcms.io/manual/iframe-field)で利用するイベントをカスタムフック化したパッケージです。
+This library will help you create [microCMS extension fields](https://document.microcms.io/manual/field-extension) in React.
 
-このパッケージでは、[useMicroCMSIframe](#usemicrocmsiframe)と[useStateMicroCMSIframe]()という二つのカスタムフックを提供しています。
+There are two types of custom hooks offered.
+
+- [useMicroCMSExtension](#usemicrocmsextension)
+- [useMicroCMSExtensionState](#usemicrocmsextensionstate)
 
 ## Quick start
 
 ```shell
-npm install use-microcms-iframe
+npm install react-microcms-extension
 # or
-yarn add use-microcms-iframe
+yarn add react-microcms-extension
 ```
 
 Use simple.
 
 ```tsx
-import { useMicroCMSIframe } from 'use-microcms-iframe'
+import { useMicroCMSExtension } from 'react-microcms-extension'
 
 function App() {
-  const { state, post } = useMicroCMSIframe<string>()
+  const { state, post } = useMicroCMSExtension<string>()
 
   return (
     <input
@@ -38,15 +41,15 @@ function App() {
 }
 ```
 
-# useMicroCMSIframe
+# useMicroCMSExtension
 
 ## Usage
 
 ```tsx
-import { useMicroCMSIframe } from 'use-microcms-iframe'
+import { useMicroCMSExtension } from 'react-microcms-extension'
 
 function App() {
-  const { state, post } = useMicroCMSIframe<string>()
+  const { state, post } = useMicroCMSExtension<string>()
 
   return (
     <input
@@ -75,78 +78,43 @@ const options = {
   origin: 'https://example.microcms.microcms.io',
 }
 
-const { state, post, postState } = useMicroCMSIframe<State>(options)
+const { state, post, postState } = useMicroCMSExtension<State>(options)
 ```
 
 ### state
 
-アクションタイプ `MICROCMS_GET_DEFAULT_DATA` で獲得した **State** を取り扱うことができます。
-
-[初期値の取得｜外部データ連携（拡張フィールド）](https://document.microcms.io/manual/iframe-field#h9e44c21a42)
+The state at the time of initialization can be handled.
 
 ### post
 
-アクションタイプ`MICROCMS_POST_DATA`を実行することができます。
+POST data to microCMS. Calls `window.parent.postMessage` internally.
 
-```ts
-// post {UseMicroCMSIframePost}
-type UseMicroCMSIframePost = <State>(message: {
-  id?: string
-  title?: string
-  description?: string
-  imageUrl?: string
-  updatedAt?: string
-  data: State
-}) => void
-```
-
-[データの送信｜外部データ連携（拡張フィールド）](https://document.microcms.io/manual/iframe-field#h7f543cc470)
+Please refer to the [microCMS documentation](https://document.microcms.io/manual/iframe-field#h7f543cc470) for the parameters that can be posted.
 
 ### postState
 
-[post()](#post)を実行した際の結果を管理している State です。<br />
-アクションタイプ`MICROCMS_POST_DATA_SUCCESS`、`MICROCMS_POST_DATA_FAILURE`のいずれかの情報が入ります。
-
-```ts
-// postState {MicroCMSIframePostState<State>}
-export type MicroCMSIframePostState<State> =
-  | PostDataSuccessMessage<State>
-  | PostDataFailureMessage
-
-export type PostDataSuccessMessage<State> = {
-  id: string
-  action: 'MICROCMS_POST_DATA_SUCCESS'
-  message: Message<State>
-}
-
-export type PostDataFailureMessage = {
-  id: string
-  action: 'MICROCMS_POST_DATA_FAILURE'
-  error: string
-}
-```
-
-[レスポンス｜外部データ連携（拡張フィールド）](https://document.microcms.io/manual/iframe-field#h349fe0c3e0)
+The state of the result of executing the post() method.
+It will contain information of action type `MICROCMS_POST_DATA_SUCCESS` or `MICROCMS_POST_DATA_FAILURE`.
 
 ## Options
 
-| Key    | Type             | Default             | Description                                                                                                           |
-| ------ | ---------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| height | string \| number | 300                 | microCMS に表示する高さを指定できます。                                                                               |
-| width  | string \| number | '100%'              | microCMS に表示する横幅を指定できます。                                                                               |
-| origin | string           | MessageEvent.origin | microCMS 管理画面 URL（https://\<serviceId\>.microcms.microcms.io）を指定することでセキュアに通信することができます。 |
+| Key    | Type             | Default             | Description                                                            |
+| ------ | ---------------- | ------------------- | ---------------------------------------------------------------------- |
+| height | string \| number | 300                 | height of the extended field                                           |
+| width  | string \| number | '100%'              | width of the extended field                                            |
+| origin | string           | MessageEvent.origin | microCMS admin screen URL (https://\<serviceId\>.microcms.microcms.io) |
 
-# useStateMicroCMSIframe
+# useMicroCMSExtensionState
 
-[useMicroCMSIframe](#usemicrocmsiframe)をラップして`useState`と同じように扱えるようにしたカスタムフックです。
+A custom hook that wraps `useMicroCMSExtension` so that it can be treated like `useState`.
 
 ## Usage
 
 ```tsx
-import { useStateMicroCMSIframe } from 'use-microcms-iframe'
+import { useMicroCMSExtensionState } from 'react-microcms-extension'
 
 function App() {
-  const [state, setState] = useStateMicroCMSIframe('')
+  const [state, setState] = useMicroCMSExtensionState('')
 
   return (
     <input
@@ -174,25 +142,19 @@ const options = {
   origin: 'https://example.microcms.microcms.io',
 }
 
-const [state, setState] = useStateMicroCMSIframe<State>(initialState, options)
+const [state, setState] = useMicroCMSExtensionState<State>(
+  initialState,
+  options
+)
 ```
-
-### state, setState
-
-`useStateMicroCMSIframe`内部で利用している`useState`の戻り値をそのまま返しています。
-
-[useState ｜ React Reference](https://reactjs.org/docs/hooks-reference.html#usestate)
 
 ## Options
 
-[Options ｜ useMicroCMSIframe](#options)に加え下記の指定が可能です。
+Inherits `useMicroCMSExtension` options.
 
 ### parsePostMessageParams
 
-アクションタイプ`MICROCMS_POST_DATA`を実行する際の Message を整形するためのオプションです。<br>
-デフォルトでは、State の情報を`data`と`description`に紐づけられるように設定されています。
-
-[データの送信｜外部データ連携（拡張フィールド）](https://document.microcms.io/manual/iframe-field#h7f543cc470)
+parse MessageParams when postEvent to microCMS
 
 #### example
 
@@ -207,7 +169,7 @@ const initialState: State = {
   text: ''
 }
 
-const [state, setState] = useStateMicroCMSIframe<State>(initialState, {
+const [state, setState] = useMicroCMSExtensionState<State>(initialState, {
   parsePostMessageParams: (data) => ({
     id: data.id
     description: data.text,

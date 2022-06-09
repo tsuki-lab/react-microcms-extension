@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useMicroCMSIframe } from './use-microcms-iframe'
+import { useMicroCMSExtension } from '../use-microcms-extension'
 import {
   ParsePostMessageParams,
-  UseStateMicroCMSIframeOptions,
-  UseStateMicroCMSIframeReturnValue,
-} from './use-state-microcms-iframe.types'
-import { descriptionParser } from './use-state-microcms-iframe.utils'
+  UseMicroCMSExtensionStateOptions,
+  UseMicroCMSExtensionStateReturnValue,
+} from './types'
+import { descriptionParser } from './utils'
 
-export const useStateMicroCMSIframe = <T>(
+export const useMicroCMSExtensionState = <T>(
   initialState: T,
-  options?: UseStateMicroCMSIframeOptions<T>
-): UseStateMicroCMSIframeReturnValue<T> => {
+  options?: UseMicroCMSExtensionStateOptions<T>
+): UseMicroCMSExtensionStateReturnValue<T> => {
   const parsePostMessageParams = useMemo<ParsePostMessageParams<T>>(() => {
     return (
       options?.parsePostMessageParams ??
@@ -22,7 +22,7 @@ export const useStateMicroCMSIframe = <T>(
   }, [options?.parsePostMessageParams])
 
   const [state, setState] = useState<T>(initialState)
-  const { state: iframeState, post } = useMicroCMSIframe<T>({
+  const { state: iframeState, post } = useMicroCMSExtension<T>({
     origin: options?.origin,
     height: options?.height,
     width: options?.width,

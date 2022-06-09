@@ -1,2 +1,2 @@
-export { useMicroCMSIframe } from './use-microcms-iframe'
-export { useStateMicroCMSIframe } from './use-state-microcms-iframe'
+export { useMicroCMSExtension } from './use-microcms-extension'
+export { useMicroCMSExtensionState } from './use-microcms-extension-state'

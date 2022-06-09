@@ -7,13 +7,13 @@ export type Message<T = null> = {
   data: T
 }
 
-export type UseMicroCMSIframeOptions = {
+export type UseMicroCMSExtensionOptions = {
   height?: string | number
   width?: string | number
   origin?: string
 }
 
-export type UseMicroCMSIframeState<T> = {
+export type UseMicroCMSExtensionState<T> = {
   id: string
   origin: string
   user: {
@@ -22,11 +22,11 @@ export type UseMicroCMSIframeState<T> = {
   message?: Message<T>
 }
 
-export type UseMicroCMSIframePost = <T>(message: Message<T>) => void
+export type UseMicroCMSExtensionPost = <T>(message: Message<T>) => void
 
-export type UseMicroCMSIframeReturnValue<T> = {
-  state: UseMicroCMSIframeState<T> | undefined
-  post: UseMicroCMSIframePost
+export type UseMicroCMSExtensionReturnValue<T> = {
+  state: UseMicroCMSExtensionState<T> | undefined
+  post: UseMicroCMSExtensionPost
   postState: MicroCMSIframePostState<T> | undefined
 }
 

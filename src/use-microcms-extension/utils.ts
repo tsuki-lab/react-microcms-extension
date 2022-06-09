@@ -3,7 +3,7 @@ import {
   PostMessageParams,
   UpdateStyleMessage,
   UpdateStyleMessageParams,
-} from './use-microcms-iframe.types'
+} from './types'
 
 const updateStyleParamsParser = (
   id: string,

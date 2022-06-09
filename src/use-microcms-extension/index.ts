@@ -4,25 +4,25 @@ import {
   MicroCMSIframePostState,
   MicroCMSMessageEvent,
   UpdateStyleMessage,
-  UseMicroCMSIframeState,
-  UseMicroCMSIframeOptions,
-  UseMicroCMSIframeReturnValue,
-  UseMicroCMSIframePost,
-} from './use-microcms-iframe.types'
-import { postIframeMessage } from './use-microcms-iframe.utils'
+  UseMicroCMSExtensionState,
+  UseMicroCMSExtensionOptions,
+  UseMicroCMSExtensionReturnValue,
+  UseMicroCMSExtensionPost,
+} from './types'
+import { postIframeMessage } from './utils'
 
 const defaultStyles = { height: 300, width: '100%' } as const
 
-export const useMicroCMSIframe = <T>(
-  options?: UseMicroCMSIframeOptions
-): UseMicroCMSIframeReturnValue<T> => {
+export const useMicroCMSExtension = <T>(
+  options?: UseMicroCMSExtensionOptions
+): UseMicroCMSExtensionReturnValue<T> => {
   const [id, setId] = useState('')
   const [origin, setOrigin] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState<Message<T>>()
   const [postState, setPostState] = useState<MicroCMSIframePostState<T>>()
 
-  const state = useMemo<UseMicroCMSIframeState<T> | undefined>(() => {
+  const state = useMemo<UseMicroCMSExtensionState<T> | undefined>(() => {
     if (!id || !origin) return
     return {
       id,
@@ -69,7 +69,7 @@ export const useMicroCMSIframe = <T>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const post = useCallback<UseMicroCMSIframePost>(
+  const post = useCallback<UseMicroCMSExtensionPost>(
     <T>(message: Message<T>): void => {
       if (id !== '' && origin !== '') {
         postIframeMessage('data', message, id, origin)

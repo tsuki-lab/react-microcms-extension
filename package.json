@@ -1,7 +1,7 @@
 {
-  "name": "use-microcms-iframe",
-  "version": "0.4.1",
-  "description": "Custom Hooks to create iframe fields for microCMS",
+  "name": "react-microcms-extension",
+  "version": "0.0.1",
+  "description": "Custom Hook to create extension field for microCMS",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
@@ -10,10 +10,10 @@
   ],
   "scripts": {
     "build": "run-p build:*",
-    "build:esbuild": "ts-node build.ts",
+    "build:esbuild": "tsx build.ts",
     "build:types": "tsc --declaration --emitDeclarationOnly --declarationDir './dist'",
     "watch": "run-p watch:*",
-    "watch:esbuild": "NODE_ENV=development ts-node build.ts",
+    "watch:esbuild": "NODE_ENV=development tsx build.ts",
     "watch:types": "tsc --watch --declaration --emitDeclarationOnly --declarationDir './dist'",
     "lint": "eslint . --ext .ts,.js",
     "format": "prettier --config .prettierrc.json --write './**/*.{ts,js,md}'",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tsuki-lab/use-microcms-iframe.git"
+    "url": "git+https://github.com/tsuki-lab/react-microcms-extension.git"
   },
   "keywords": [
     "microcms",
@@ -34,12 +34,10 @@
   "author": "hanetsuki <me@tsuki-lab.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tsuki-lab/use-microcms-iframe/issues"
+    "url": "https://github.com/tsuki-lab/react-microcms-extension/issues"
   },
-  "homepage": "https://github.com/tsuki-lab/use-microcms-iframe#readme",
+  "homepage": "https://github.com/tsuki-lab/react-microcms-extension#readme",
   "devDependencies": {
-    "@testing-library/react": "^13.2.0",
-    "@testing-library/react-hooks": "^8.0.0",
     "@types/node": "^17.0.31",
     "@types/react": "^18.0.8",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
@@ -56,9 +54,8 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
     "react-dom": "^18.1.0",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.4",
-    "vitest": "^0.12.0"
+    "tsx": "^3.4.2",
+    "typescript": "^4.6.4"
   },
   "dependencies": {
     "react": "^18.1.0"
