@@ -1,6 +1,6 @@
 {
   "name": "react-microcms-extension",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Custom Hook to create extension field for microCMS",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
@@ -19,8 +19,7 @@
     "format": "prettier --config .prettierrc.json --write './**/*.{ts,js,md}'",
     "fix": "pnpm format && pnpm lint --fix",
     "type-check": "tsc --noEmit",
-    "prepare": "husky install",
-    "test": "vitest run"
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
